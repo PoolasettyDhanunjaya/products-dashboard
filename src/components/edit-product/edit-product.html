@@ -1,0 +1,30 @@
+<div class="edit-wrapper">
+  <div class="edit-container">
+    <h2>Edit Product</h2>
+
+    <!-- Use async pipe to unwrap product$ -->
+    <ng-container *ngIf="product$ | async as product; else loadingOrError">
+      <div *ngIf="product; else notFound">
+        <label>Name: <input [(ngModel)]="product.productName" /></label><br />
+        <label>Description: <input [(ngModel)]="product.description" /></label><br />
+        <label>Category: <input [(ngModel)]="product.category" /></label><br />
+        <label>Price (₹): <input type="number" [(ngModel)]="product.price" /></label><br />
+
+        <a routerLink="/products" style="margin-left: 10px;">  
+        <button (click)="save(product)">💾 Save</button>
+        </a>
+        
+      </div>
+    </ng-container>
+
+    <!-- 🔄 Loading -->
+    <ng-template #loadingOrError>
+      <p>🔄 Loading product...</p>
+    </ng-template>
+
+    <!-- ❌ Not found -->
+    <ng-template #notFound>
+      <p>❌ Product not found.</p>
+    </ng-template>
+  </div>
+</div>

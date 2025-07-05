@@ -1,0 +1,46 @@
+.navbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #050f19;
+  color: rgb(16, 2, 2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  background-color: white;
+  color: #150606;
+  padding: 6px 10px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.nav-links li a:hover {
+  background-color: #ae9da4;    /* ✅ Fresh green hover */
+  border-color: #ffffff;        /* ✅ White border on hover */
+  color: #000;                  /* 🖤 Optional: dark text for contrast */
+  box-shadow: 0 0 10px rgba(46, 206, 48, 0.4); /* 💫 Soft glow effect */
+}

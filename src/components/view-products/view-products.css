@@ -1,0 +1,66 @@
+
+.product-list-wrapper {
+  padding: 50px;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.product-table thead {
+  background-color: #f2f4f8;
+  text-align: left;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-table tbody tr:hover {
+  background-color: #eef2f7;
+  cursor: pointer;
+}
+
+/* ❌ Error Message Styling */
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* 🗑️ Delete Button Styling */
+.delete-button {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+/* ✅ Success Snackbar Styling (Green with Black Text) */
+.success-snackbar {
+  background-color: #2ece30 !important;  /* Green background */
+  color: black !important;               /* Black text */
+  font-weight: 600;
+}
+
+/* ❌ Error Snackbar Styling (Optional) */
+.error-snackbar {
+  background-color: #f44336 !important;  /* Red */
+  color: white !important;
+  font-weight: 600;
+}

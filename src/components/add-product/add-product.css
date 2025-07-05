@@ -1,0 +1,96 @@
+.product-list-wrapper {
+  padding: 70px;
+}
+h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1976d2;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:enabled {
+  background-color: #125ea6;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 24px;
+  max-width: 700px;         /* 👈 Decreased width */
+  margin: 40px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  min-height: 500px;        /* 👈 Shorter height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: box-shadow 0.3s ease;
+}
+
+
+.form-container:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15); /* subtle hover effect */
+}
+
+
+h2 {
+  text-align: center;
+  color: #1976d2;
+  margin-bottom: 25px;
+}
+
+.success-snackbar {
+  background-color: #18d467 !important;  /* ✅ Green background */
+  color: #b51515 !important;                /* 🖤 Black text */
+  font-weight: 500;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.button-group {
+  display: flex;
+  gap: 12px; /* 👈 space between buttons */
+  margin-top: 12px;
+}
+
+.button-group button {
+  flex: 1;
+}
+
+
+
