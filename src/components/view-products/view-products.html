@@ -25,18 +25,22 @@
             <td>{{ product.description }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.price }}</td>
-            <td>
-              <button [routerLink]="['/edit-product', product.id]">
-                ✏️ Edit
-              </button>
-              <button
-                (click)="delete(product.id!)"
-                class="delete-button"
-                title="Delete Product"
-              >
-                🗑️ Delete
-              </button>
-            </td>
+
+<td>
+  <button [routerLink]="['/view-product', product.id]" title="View Product" class="icon-button">
+    🔍
+  </button>
+  <button [routerLink]="['/edit-product', product.id]" title="Edit Product" class="icon-button">
+    ✏️
+  </button>
+  <button (click)="delete(product.id!)" title="Delete Product" class="icon-button">
+    🗑️
+  </button>
+</td>
+
+
+
+
           </tr>
         </tbody>
       </table>

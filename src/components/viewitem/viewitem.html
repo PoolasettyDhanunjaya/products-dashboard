@@ -1,0 +1,27 @@
+<div class="view-wrapper">
+  <div class="view-container">
+    <h2>🔍 View Product</h2>
+
+    <ng-container *ngIf="product$ | async as product; else loadingOrError">
+      <div *ngIf="product; else notFound" class="product-card">
+        <div><strong>Name:</strong> {{ product.productName }}</div>
+        <div><strong>Description:</strong> {{ product.description }}</div>
+        <div><strong>Category:</strong> {{ product.category }}</div>
+        <div><strong>Price (₹):</strong> {{ product.price }}</div>
+
+        <a routerLink="/products" class="icon-button" >
+          <button>⬅️</button>
+        </a>
+        
+      </div>
+    </ng-container>
+
+    <ng-template #loadingOrError>
+      <p>🔄 Loading product...</p>
+    </ng-template>
+
+    <ng-template #notFound>
+      <p>❌ Product not found.</p>
+    </ng-template>
+  </div>
+</div>

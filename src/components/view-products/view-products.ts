@@ -62,10 +62,10 @@ export class ViewProducts implements OnInit, AfterViewInit {
   }
 
   // 🗑️ Delete a product and reload list
-  delete(id: number): void {
+  delete(id: string): void {
     if (!id) return; // Guard for invalid ID
 
-    this.productService.deleteProduct(id.toString()).subscribe({
+    this.productService.deleteProduct(id).subscribe({
       next: () => {
         this.showSDeleteMessage();   // Show success message
         this.loadProducts();         // Refresh product list after delete

@@ -14,27 +14,16 @@ export class Products {
 
   // ✅ Add product to backend
   addProduct(product: Product): void {
-    this.http.post('https://localhost:44351/api/WeatherForecast/add-product', product)
+    this.http.post('https://localhost:44351/api/Product/CreateProduct', product)
       .subscribe({
         next: (res) => console.log('✅ Product added:', res),
         error: (err) => console.error('❌ Error adding product:', err)
       });
   }
 
-// getProducts(): Product[] {
-//    this.http.get<Product[]>('https://localhost:44351/api/WeatherForecast/products').subscribe({
-//     next: (data) => {
-//       this.productList = data;
-//     },
-//     error: (err) => console.error('❌ Error loading products:', err)
-//   });
-//   return this.productList;
-// }
-
 getProducts(): Observable<Product[]> {
-  return this.http.get<Product[]>('https://localhost:44351/api/WeatherForecast/products');
+  return this.http.get<Product[]>('https://localhost:44351/api/Product/GetProducts');
 }
-
 
 
   // ✅ Set local cache (used for getProduct)
@@ -43,7 +32,7 @@ getProducts(): Observable<Product[]> {
   }
 
 getProduct(id: string): Observable<Product> {
-  const url = `https://localhost:44351/api/WeatherForecast/productById?id=`+id;
+  const url = `https://localhost:44351/api/Product/GetProductById?id=`+id;
   return this.http.get<Product>(url);
 }
 
@@ -53,7 +42,7 @@ getProduct(id: string): Observable<Product> {
     if (index !== -1) {
       this.productList[index] = product;
     }
-    this.http.post('https://localhost:44351/api/WeatherForecast/update-product', product)
+    this.http.post('https://localhost:44351/api/Product/UpdateProduct', product)
       .subscribe({
         next: () => console.log('✅ Product updated'),
         error: (err) => console.error('❌ Error updating product', err)
@@ -62,7 +51,7 @@ getProduct(id: string): Observable<Product> {
 
 // ✅ Inside products.service.ts
 deleteProduct(id: string): Observable<any> {
-  const url = `https://localhost:44351/api/WeatherForecast/deleteProductById?id=${id}`;
+  const url = `https://localhost:44351/api/Product/DeleteById?id=${id}`;
   return this.http.get(url); // ✅ Use DELETE
 }
 

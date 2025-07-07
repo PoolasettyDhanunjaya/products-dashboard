@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "\\.angular\\cache",
+    "\\.angular\\cache\\20.0.5",
+    "\\.angular\\cache\\20.0.5\\my-angular-app",
+    "\\.angular\\cache\\20.0.5\\my-angular-app\\vite",
+    "\\.angular\\cache\\20.0.5\\my-angular-app\\vite\\deps"
+  ],
+  "PreviewInSolutionExplorer": false
+}

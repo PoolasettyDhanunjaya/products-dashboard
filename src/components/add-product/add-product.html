@@ -2,6 +2,8 @@
   <div class="form-container">
   <h2>Add Product</h2>
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+
     <div class="form-group">
       <label for="productName">Product Name:</label>
       <input id="productName" type="text" formControlName="productName" />
