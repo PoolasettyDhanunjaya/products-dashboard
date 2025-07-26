@@ -36,7 +36,28 @@ export class EditProduct implements OnInit {
         );
       })
     );
+      // Log the product response for debugging
+  this.product$.subscribe(product => {
+    console.log('🧾 Product fetched:', product); // ✅ logs the response
+  });
+  
   }
+
+//   ngOnInit(): void {
+//   this.product$ = this.route.queryParams.pipe(
+//     switchMap(params => {
+//       const id = params['id']; // ✅ get from query string
+//       if (!id) return of(null);
+//       return this.productService.getProduct(id).pipe(
+//         catchError(err => {
+//           console.error('❌ Error loading product:', err);
+//           return of(null);
+//         })
+//       );
+//     })
+//   );
+// }
+
 
   save(product: Product) {
     this.productService.update(product); // Still untouched

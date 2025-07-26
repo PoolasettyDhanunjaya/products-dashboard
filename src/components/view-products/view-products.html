@@ -1,13 +1,17 @@
 <div class="product-list-wrapper">
-  <h2>📦 Product List</h2>
 
-  <!-- ❌ Error Message -->
-  <div *ngIf="hasError" class="error-message">
-    ❌ Failed to load products. Please try again later.
+  <!-- 🚀 Header Section -->
+  <div class="header-bar">
+    <h2>📦 Product List</h2>
+
+    <!-- ➕ Create New Product (HTML routing using routerLink) -->
+    <button class="add-button" routerLink="/">+ New</button>
   </div>
 
-  <!-- ✅ Product Table -->
+  <!-- 📥 Async Product Data Binding -->
   <ng-container *ngIf="productList$ | async as productList">
+    
+    <!-- ✅ Product List Display if Products Exist -->
     <ng-container *ngIf="productList.length > 0; else noProducts">
       <table class="product-table">
         <thead>
@@ -19,6 +23,7 @@
             <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let product of productList">
             <td>{{ product.productName }}</td>
@@ -26,29 +31,43 @@
             <td>{{ product.category }}</td>
             <td>{{ product.price }}</td>
 
-<td>
-  <button [routerLink]="['/view-product', product.id]" title="View Product" class="icon-button">
-    🔍
-  </button>
-  <button [routerLink]="['/edit-product', product.id]" title="Edit Product" class="icon-button">
-    ✏️
-  </button>
-  <button (click)="delete(product.id!)" title="Delete Product" class="icon-button">
-    🗑️
-  </button>
-</td>
+            <td>
+              <!-- 🔍 View Product (Query Param Routing - HTML + TypeScript) -->
+              <button
+                (click)="view(product!)"
+                [routerLink]="['/view-product']"
+                [queryParams]="{ id: product.id }"
+                title="View Product"
+                class="icon-button">
+                🔍
+              </button>
 
+              <!-- ✏️ Edit Product (TS file routing using Router) -->
+              <button 
+                (click)="edit(product.id!)" 
+                title="Edit Product" 
+                class="icon-button">
+                ✏️
+              </button>
 
-
-
+              <!-- 🗑️ Delete Product -->
+              <button 
+                (click)="delete(product.id!)" 
+                title="Delete Product" 
+                class="icon-button">
+                🗑️
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </ng-container>
+
   </ng-container>
 
-  <!-- 🕒 No Products or Still Loading -->
+  <!-- ❌ No Products Found (Fallback Template) -->
   <ng-template #noProducts>
-    <p>🕒 No products found or still loading...</p>
+    <p>❌ {{error}}</p>         
   </ng-template>
+
 </div>

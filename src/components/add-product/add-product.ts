@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Products } from '../../services/products';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import Stream from 'node:stream';
+import { stringify } from 'node:querystring';
+import { json } from 'node:stream/consumers';
 
 @Component({
   selector: 'app-add-product',
@@ -12,9 +16,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class AddProduct implements OnInit {
   productForm!: FormGroup;
-  router: any;
+  ar : number[]=[1,2,3,4,5,6];
+    br : number[]=[1,2,3,4,5,6];
 
-  constructor(private fb: FormBuilder, private productService: Products, private snackBar: MatSnackBar) {}
+  constructor(private fb: FormBuilder , private productService: Products, private snackBar: MatSnackBar, private router: Router) {}
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
@@ -23,9 +28,10 @@ export class AddProduct implements OnInit {
   price: ['', [Validators.required, Validators.min(1)]],
   description: ['', Validators.required],
   category: ['', Validators.required]
+  
 });
-
-    
+  // console.log(null==undefined);
+  // console.log(JSON.stringify(this.ar)==JSON.stringify(this.br));
   }
   onSubmit(): void {
     if (this.productForm.valid) {
@@ -34,6 +40,7 @@ export class AddProduct implements OnInit {
       this.productService.addProduct(newProduct);
       this.showSuccessMessage();
       this.productForm.reset();
+      this.router.navigate(['/products']); // ✅ redirect to Products
     }
   }
 

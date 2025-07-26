@@ -1,12 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Query } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import { Products } from '../../services/products';
 import { Product } from '../../models/Product ';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import id from '@angular/common/locales/id';
+import { Viewitem } from '../viewitem/viewitem';
 
 @Component({
   selector: 'app-view-products',
@@ -15,16 +17,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './view-products.html',
   styleUrl: './view-products.css'
 })
-export class ViewProducts implements OnInit, AfterViewInit {
+export class ViewProducts implements OnInit {
   // Observable stream for product list
   productList$!: Observable<Product[]>;
+  error : string = "" ;
 
   // Error flag to show fallback message if API fails
   hasError: boolean = false;
-
+  selectedProduct$: any | undefined;
   constructor(
     private productService: Products,        // Inject product service
-    private snackBar: MatSnackBar            // Inject snackbar for notifications
+    private snackBar: MatSnackBar,            // Inject snackbar for notifications
+    private router: Router
   ) {}
 
   // ✅ ngOnInit (standard Angular lifecycle hook)
@@ -35,21 +39,24 @@ export class ViewProducts implements OnInit, AfterViewInit {
   }
 
   // ✅ ngAfterViewInit to safely load data after view has been rendered
-  ngAfterViewInit(): void {
-    // Use setTimeout to defer loading after initial change detection to avoid ExpressionChangedAfterItHasBeenCheckedError
-    setTimeout(() => this.loadProducts());
-  }
+  // ngAfterViewInit(): void {
+  //   // Use setTimeout to defer loading after initial change detection to avoid ExpressionChangedAfterItHasBeenCheckedError
+  //   setTimeout(() => this.loadProducts());
+  // }
 
-  // 🔃 Loads the products and handles errors gracefully
-  loadProducts(): void {
-    this.productList$ = this.productService.getProducts().pipe(
-      catchError((err) => {
-        console.error('❌ Error loading products:', err);
-        this.hasError = true;
-        return of([]); // Return empty list on error
-      })
-    );
-  }
+loadProducts(): void {
+  this.productList$ = this.productService.getProducts().pipe(
+    map((res) => {
+      console.log('📦 Raw product response:', res);
+      return Object.values(res); // ✅ Convert object to array
+    }),
+    catchError((err) => {
+      console.error('❌ Error loading products:', err);
+      this.error = err;
+      return of([]); // Return empty array on error
+    })
+  );
+}
 
   // ✅ Show success message when a product is deleted
   showSDeleteMessage(): void {
@@ -81,4 +88,15 @@ export class ViewProducts implements OnInit, AfterViewInit {
       }
     });
   }
+
+  view(item:Product):void{
+      this.productService.setProductForView(item);
+        localStorage.setItem('productView', JSON.stringify(item));
+
+  }
+
+  edit(id: string): void {
+  this.router.navigate(['/edit-product', id]);
+}
+
 }

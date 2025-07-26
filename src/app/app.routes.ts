@@ -11,5 +11,11 @@ export const routes: Routes = [
   { path: 'contact', component : Contact },
   { path: 'products', component : ViewProducts },
   { path: 'edit-product/:id', component: EditProduct },
-  { path: 'view-product/:id', component: Viewitem }
+  //{ path: 'view-product/:id', component: Viewitem },
+  { path: 'view-product', component: Viewitem }, 
+  //  {
+  //   path: 'contact',
+  //   loadComponent: () =>
+  //     import('../components/contact/contact').then(m => m.Contact)
+  // },
 ];

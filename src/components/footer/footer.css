@@ -10,6 +10,7 @@ footer {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  position: fixed;
   box-shadow: 0 -1px 6px rgba(168, 42, 42, 0.1);
 }
 

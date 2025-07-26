@@ -1,8 +1,7 @@
 <div  class="product-list-wrapper">
   <div class="form-container">
   <h2>Add Product</h2>
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-
+  <form  [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
     <div class="form-group">
       <label for="productName">Product Name:</label>
@@ -25,8 +24,8 @@
     </div>
 
 <div class="button-group">
-  <button type="submit" [disabled]="productForm.invalid">Add Product</button>
-  <button type="button" (click)="clearForm()">Clear</button>
+        <button type="submit">Add New</button> <!-- ✅ FIXED -->
+  <button  type="button" (click)="clearForm()">Clear</button>
 </div>
 
   </form>

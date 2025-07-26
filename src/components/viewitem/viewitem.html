@@ -1,27 +1,38 @@
 <div class="view-wrapper">
   <div class="view-container">
+
+    <!-- 🔍 Page Title -->
     <h2>🔍 View Product</h2>
 
-    <ng-container *ngIf="product$ | async as product; else loadingOrError">
+    <!-- 🙋 Custom Pipe Example: Greeting based on "Bro" -->
+    <p>{{ "Bro" | greeting }}</p>
+
+    <!-- 📦 Async View: Product Object Loaded from TS -->
+    <ng-container *ngIf="product else loadingOrError">
+
+      <!-- ✅ Show Product Details if Product Exists -->
       <div *ngIf="product; else notFound" class="product-card">
         <div><strong>Name:</strong> {{ product.productName }}</div>
         <div><strong>Description:</strong> {{ product.description }}</div>
         <div><strong>Category:</strong> {{ product.category }}</div>
         <div><strong>Price (₹):</strong> {{ product.price }}</div>
 
-        <a routerLink="/products" class="icon-button" >
+        <!-- 🔙 Back Button to Product List -->
+        <a routerLink="/products" class="icon-button">
           <button>⬅️</button>
         </a>
-        
       </div>
     </ng-container>
 
+    <!-- ⏳ Loading Fallback -->
     <ng-template #loadingOrError>
       <p>🔄 Loading product...</p>
     </ng-template>
 
+    <!-- ❌ Fallback if Product Not Found -->
     <ng-template #notFound>
       <p>❌ Product not found.</p>
     </ng-template>
+
   </div>
 </div>

@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/Product ';
-import { Observable } from 'rxjs';
+import { catchError, Observable, retry, tap, throwError } from 'rxjs';
+import { error } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Products {
 
-  private productList: Product[] = []; // Local cache
+   productView: Product | undefined; 
 
   constructor(private http: HttpClient) {}
 
@@ -21,27 +22,45 @@ export class Products {
       });
   }
 
+// getProducts(): Observable<Product[]> {
+//   console.log('🔥 API CALL: GetProducts triggered');
+
+//   return this.http.get<Product[]>('https://localhost:44351/api/Product/GetProducts').pipe(
+//     retry(3),  // 🔁 Retry 3 times in case of error
+//     catchError(error => {
+//       console.error(`❌ Error occurred in getProducts:`, error);
+//       return throwError(() => new Error('Failed to fetch products from server'));
+//     })
+//   );
+// }
 getProducts(): Observable<Product[]> {
-  return this.http.get<Product[]>('https://localhost:44351/api/Product/GetProducts');
+  console.log('🔥 API CALL STARTED');
+
+  return this.http.get<Product[]>('https://localhost:44351/api/Product/GetProducts').pipe(
+    tap(() => console.log('📡 Attempting HTTP call...')),
+    retry(3),  // will retry 3 times (i.e., total 4 attempts max)
+    catchError(error => {
+      console.error('❌ Final failure after retries:', error);
+      return throwError(() => new Error('Failed after retries'));
+    })
+  );
 }
 
-
-  // ✅ Set local cache (used for getProduct)
-  setLocalProducts(products: Product[]): void {
-    this.productList = products;
+  // ✅ used for getProduct
+  setProductForView(product: Product): void {
+    this.productView = product;
   }
 
 getProduct(id: string): Observable<Product> {
   const url = `https://localhost:44351/api/Product/GetProductById?id=`+id;
-  return this.http.get<Product>(url);
+  return this.http.get<Product>(url).pipe(
+    retry(3), 
+    catchError(error=>{console.log(error); return throwError(()=>new Error('fail'));})
+);
 }
 
   // ✅ Update product in backend
   update(product: Product): void {
-    const index = this.productList.findIndex(p => p.id === product.id);
-    if (index !== -1) {
-      this.productList[index] = product;
-    }
     this.http.post('https://localhost:44351/api/Product/UpdateProduct', product)
       .subscribe({
         next: () => console.log('✅ Product updated'),

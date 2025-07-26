@@ -4,11 +4,14 @@ import {
   provideZonelessChangeDetection
 } from '@angular/core';
 
-import { provideRouter } from '@angular/router';
+import { provideRouter, RouterModule } from '@angular/router';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient } from '@angular/common/http'; // ✅ Import this
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'; // ✅ Import this
+import {  withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
+import { GreetingPipe } from '../pipes/greeting-pipe';
+import { ModifyInterceptor } from '../interceptors/modify-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +19,11 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient() // ✅ Add this line
-  ]
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ModifyInterceptor,
+      multi: true
+    }
+    ]
 };

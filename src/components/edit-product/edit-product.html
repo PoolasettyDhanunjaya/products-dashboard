@@ -1,30 +1,53 @@
 <div class="edit-wrapper">
   <div class="edit-container">
+
+    <!-- 📝 Page Heading -->
     <h2>Edit Product</h2>
 
-    <!-- Use async pipe to unwrap product$ -->
+    <!-- 📦 Async Pipe: Wait for product$ to resolve -->
     <ng-container *ngIf="product$ | async as product; else loadingOrError">
-      <div *ngIf="product; else notFound">
-        <label>Name: <input [(ngModel)]="product.productName" /></label><br />
-        <label>Description: <input [(ngModel)]="product.description" /></label><br />
-        <label>Category: <input [(ngModel)]="product.category" /></label><br />
-        <label>Price (₹): <input type="number" [(ngModel)]="product.price" /></label><br />
 
-        <a routerLink="/products" style="margin-left: 10px;">  
-        <button (click)="save(product)">💾 Save</button>
+      <!-- ✅ If product is found, show editable form -->
+      <div *ngIf="product; else notFound">
+
+        <!-- 🖋️ Editable Form Fields -->
+        <label>
+          Name: 
+          <input [(ngModel)]="product.productName" />
+        </label><br />
+
+        <label>
+          Description: 
+          <input [(ngModel)]="product.description" />
+        </label><br />
+
+        <label>
+          Category: 
+          <input [(ngModel)]="product.category" />
+        </label><br />
+
+        <label>
+          Price (₹): 
+          <input type="number" [(ngModel)]="product.price" />
+        </label><br />
+
+        <!-- 💾 Save Button (calls save function and navigates to /products) -->
+        <a routerLink="/products" style="margin-left: 10px;">
+          <button (click)="save(product)">💾 Save</button>
         </a>
-        
+
       </div>
     </ng-container>
 
-    <!-- 🔄 Loading -->
+    <!-- ⏳ Fallback: Loading product -->
     <ng-template #loadingOrError>
       <p>🔄 Loading product...</p>
     </ng-template>
 
-    <!-- ❌ Not found -->
+    <!-- ❌ Fallback: Product not found -->
     <ng-template #notFound>
       <p>❌ Product not found.</p>
     </ng-template>
+
   </div>
 </div>
