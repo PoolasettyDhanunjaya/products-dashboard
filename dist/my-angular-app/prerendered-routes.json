@@ -1,9 +1,9 @@
 {
   "routes": {
-    "/%3Cproducts-dashboard%3E": {},
-    "/%3Cproducts-dashboard%3E/contact": {},
-    "/%3Cproducts-dashboard%3E/edit-product": {},
-    "/%3Cproducts-dashboard%3E/products": {},
-    "/%3Cproducts-dashboard%3E/view-product": {}
+    "/products-dashboard": {},
+    "/products-dashboard/contact": {},
+    "/products-dashboard/edit-product": {},
+    "/products-dashboard/products": {},
+    "/products-dashboard/view-product": {}
   }
 }

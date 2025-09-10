@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/<products-dashboard>',
+  basePath: '/products-dashboard',
   supportedLocales: {
   "en-US": ""
 },
