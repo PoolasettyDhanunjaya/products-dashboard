@@ -16,7 +16,7 @@ import { switchMap, catchError } from 'rxjs/operators';
   imports: [CommonModule, FormsModule, RouterLink]
 })
 export class EditProduct implements OnInit {
-  product$!: Observable<any | null>;
+  product : Product | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,23 +24,50 @@ export class EditProduct implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.product$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        const id = params.get('id');
-        if (!id) return of(null);
-        return this.productService.getProduct(id).pipe(
-          catchError(err => {
-            console.error('❌ Error loading product:', err);
-            return of(null);
-          })
-        );
-      })
-    );
-      // Log the product response for debugging
-  this.product$.subscribe(product => {
-    console.log('🧾 Product fetched:', product); // ✅ logs the response
-  });
+  //   this.product$ = this.route.paramMap.pipe(
+  //     switchMap(params => {
+  //       const id = params.get('id');
+  //       if (!id) return of(null);
+  //       return this.productService.getProduct(id).pipe(
+  //         catchError(err => {
+  //           console.error('❌ Error loading product:', err);
+  //           return of(null);
+  //         })
+  //       );
+  //     })
+  //   );
+  //     // Log the product response for debugging
+  // this.product$.subscribe(product => {
+  //   console.log('🧾 Product fetched:', product); // ✅ logs the response
+  // });
   
+        // this.product$ = this.route.paramMap.pipe(
+      //   switchMap(params => {
+      //     const id = params.get('id');
+      //     if (!id) return of(null);
+      //     return this.productService.getProduct(id).pipe(
+      //       catchError(err => {
+      //         console.error('❌ Error loading product:', err);
+      //         return of(null);
+      //       })
+      //     );
+      //   })
+      // );
+      //this.product$ = this.item;
+
+      this.product =this.productService.productView ;
+        // Try memory first
+      this.product = this.productService.productView;
+
+  // If memory is lost (refresh case), fallback to localStorage
+  if (!this.product) {
+    const productJson = localStorage.getItem('productView');
+    if (productJson) {
+      this.product = JSON.parse(productJson);
+    } else {
+      console.warn('❌ Product not found in service or localStorage.');
+    }
+  }
   }
 
 //   ngOnInit(): void {

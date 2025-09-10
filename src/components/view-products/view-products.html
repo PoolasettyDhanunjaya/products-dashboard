@@ -44,7 +44,9 @@
 
               <!-- ✏️ Edit Product (TS file routing using Router) -->
               <button 
-                (click)="edit(product.id!)" 
+                (click)="view(product!)"
+                [routerLink]="['/edit-product']"
+                [queryParams]="{ id: product.id }"
                 title="Edit Product" 
                 class="icon-button">
                 ✏️

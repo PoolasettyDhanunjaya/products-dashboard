@@ -42,7 +42,7 @@ viewItem: Product  | undefined;
 
       this.product =this.productService.productView ;
         // Try memory first
-  this.product = this.productService.productView;
+      this.product = this.productService.productView;
 
   // If memory is lost (refresh case), fallback to localStorage
   if (!this.product) {

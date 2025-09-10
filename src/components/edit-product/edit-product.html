@@ -5,7 +5,7 @@
     <h2>Edit Product</h2>
 
     <!-- 📦 Async Pipe: Wait for product$ to resolve -->
-    <ng-container *ngIf="product$ | async as product; else loadingOrError">
+    <ng-container *ngIf="product ; else loadingOrError">
 
       <!-- ✅ If product is found, show editable form -->
       <div *ngIf="product; else notFound">
