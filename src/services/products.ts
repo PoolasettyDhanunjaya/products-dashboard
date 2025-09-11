@@ -15,7 +15,7 @@ export class Products {
 
   // ✅ Add product to backend
   addProduct(product: Product): void {
-    this.http.post('https://localhost:7136/api/Product/CreateProduct', product)
+    this.http.post('https://qwertyuiop-1uoi.onrender.com/api/Product/CreateProduct', product)
       .subscribe({
         next: (res) => console.log('✅ Product added:', res),
         error: (err) => console.error('❌ Error adding product:', err)
@@ -36,7 +36,7 @@ export class Products {
 getProducts(): Observable<Product[]> {
   console.log('🔥 API CALL STARTED');
 
-  return this.http.get<Product[]>('https://localhost:7136/api/Product/GetProducts').pipe(
+  return this.http.get<Product[]>('https://qwertyuiop-1uoi.onrender.com/api/Product/GetProducts').pipe(
     tap(() => console.log('📡 Attempting HTTP call...')),
     retry(3),  // will retry 3 times (i.e., total 4 attempts max)
     catchError(error => {
@@ -52,7 +52,7 @@ getProducts(): Observable<Product[]> {
   }
 
 getProduct(id: string): Observable<Product> {
-  const url = `https://localhost:7136/api/Product/GetProductById?id=`+id;
+  const url = `https://qwertyuiop-1uoi.onrender.com/api/Product/GetProductById?id=`+id;
   return this.http.get<Product>(url).pipe(
     retry(3), 
     catchError(error=>{console.log(error); return throwError(()=>new Error('fail'));})
@@ -61,7 +61,7 @@ getProduct(id: string): Observable<Product> {
 
   // ✅ Update product in backend
   update(product: Product): void {
-    this.http.post('https://localhost:7136/api/Product/UpdateProduct', product)
+    this.http.post('https://qwertyuiop-1uoi.onrender.com/api/Product/UpdateProduct', product)
       .subscribe({
         next: () => console.log('✅ Product updated'),
         error: (err) => console.error('❌ Error updating product', err)
@@ -70,7 +70,7 @@ getProduct(id: string): Observable<Product> {
 
 // ✅ Inside products.service.ts
 deleteProduct(id: string): Observable<any> {
-  const url = `https://localhost:7136/api/Product/DeleteById?id=${id}`;
+  const url = `https://qwertyuiop-1uoi.onrender.com/api/Product/DeleteById?id=${id}`;
   return this.http.get(url); // ✅ Use DELETE
 }
 
